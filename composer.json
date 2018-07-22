@@ -1,0 +1,40 @@
+{
+  "name": "normeno/base64-handler",
+  "description": "Base64 Handler",
+  "keywords": ["base64", "base64 handler"],
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Nicolas Ormeno",
+      "email": "ni.ormeno@gmail.com",
+      "homepage": "http://normeno.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Normeno\\Base64Handler\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Normeno\\Base64Handler\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Normeno\\Base64Handler\\Base64HandlerServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
