@@ -35,10 +35,12 @@ class Converter
      * Convert image to base64
      *
      * @param string $file image's path
+     * @see https://stackoverflow.com/a/13758760/2901396
      *
      * @return bool|string
      */
-    public function imageToBase64($file) {
+    public static function imageToBase64($file)
+    {
         try {
             $type = pathinfo($file, PATHINFO_EXTENSION);
             $data = file_get_contents($file);
@@ -47,5 +49,17 @@ class Converter
         } catch (\Exception $e) {
             return false;
         }
+    }
+
+    /**
+     * Convert base64 to image
+     *
+     * @param string $str Base64 string
+     *
+     * @return bool|string
+     */
+    public static function base64ToImage($str)
+    {
+
     }
 }
