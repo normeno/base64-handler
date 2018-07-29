@@ -38,10 +38,24 @@ class Utils
      *
      * @return bool|string
      */
-    public function clearString($str) {
+    public static function clearString(string $str) {
         try {
             $explode = explode('base64,', $str);
             return array_key_exists(1, $explode) ? $explode[1] : $explode[0];
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return bool
+     */
+    public static function isValidPath(string $path)
+    {
+        try {
+            return file_exists($path) ? true : false;
         } catch (\Exception $e) {
             return false;
         }
