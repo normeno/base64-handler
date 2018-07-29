@@ -68,6 +68,8 @@ class Base64HandlerTest extends TestCase
 
     /**
      * Check if string is a valid base64
+     *
+     * @return void
      */
     public function testToBase64()
     {
@@ -75,5 +77,18 @@ class Base64HandlerTest extends TestCase
             $convert = $this->handler->toBase64($sample);
             $this->assertTrue(Checker::isBase64($convert), 'testToBase64');
         }
+    }
+
+    /**
+     * Convert an url to base64
+     *
+     * @return void
+     */
+    public function testUrlToBase64()
+    {
+        $url = 'http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png';
+        $convert = $this->handler->toBase64($url);
+
+        $this->assertTrue(Checker::isBase64($convert), 'testToBase64');
     }
 }

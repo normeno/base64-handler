@@ -42,7 +42,9 @@ class Base64Handler {
     public function toBase64(string $path)
     {
         try {
-            if (!Utils::isValidPath($path)) {
+            $isUrl = filter_var($path, FILTER_VALIDATE_URL);
+
+            if (!$isUrl && !Utils::isValidPath($path)) {
                 throw new \Exception('Invalid Path', 404);
             }
 

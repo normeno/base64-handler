@@ -17,8 +17,17 @@ $base64Handler = new Base64Handler();
 
 ### File to Base64
 
+**Path**
+
 ```php
 $file = 'path/to/file.png';
+$convert = $base64Handler->toBase64($file);
+```
+
+**URL**
+
+```php
+$file = 'http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png';
 $convert = $base64Handler->toBase64($file);
 ```
 
