@@ -1,14 +1,38 @@
 # Base64 Handler (In Progress)
 
-A package to handle base64 strings.
+[![Latest Stable Version](https://poser.pugx.org/normeno/base64-handler/v/stable)](https://packagist.org/packages/normeno/base64-handler)
+[![Latest Unstable Version](https://poser.pugx.org/normeno/base64-handler/v/unstable)](https://packagist.org/packages/normeno/base64-handler)
+[![Total Downloads](https://poser.pugx.org/normeno/base64-handler/downloads)](https://packagist.org/packages/normeno/base64-handler)
+[![License](https://poser.pugx.org/normeno/base64-handler/license)](https://packagist.org/packages/normeno/base64-handler)
 
-## Methods
+A simple and powerful package to handle base64.
 
-* Check if string is a valid base64.
-* Check if base64 is an image.
-* Convert image to base64
+## Usage
+
+### Init library
+
+```php
+$base64Handler = new Base64Handler();
+```
+
+### File to Base64
+
+```php
+$file = 'path/to/file.png';
+$convert = $base64Handler->toBase64($file);
+```
 
 ## TO-DO
 
 * Detect type of base64
 * Check if base64 is a PDF
+
+## License
+
+The _Base64 Handler_ is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Donate
+
+If you find this project useful, you can buy author a glass of juice
+
+* [Buy me a coffee](https://www.buymeacoff.ee/normeno)
