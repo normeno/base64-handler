@@ -6,6 +6,7 @@ A package to handle base64 strings.
 
 * Check if string is a valid base64.
 * Check if base64 is an image.
+* Convert image to base64
 
 ## TO-DO
 
