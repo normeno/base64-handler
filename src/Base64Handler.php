@@ -31,5 +31,24 @@ namespace Normeno\Base64Handler;
  */
 class Base64Handler {
 
+    /**
+     * Convert file to base64
+     *
+     * @param string $path file path
+     *
+     *
+     * @return bool|string
+     */
+    public function toBase64(string $path)
+    {
+        try {
+            if (!Utils::isValidPath($path)) {
+                throw new \Exception('Invalid Path', 404);
+            }
 
+            return base64_encode(file_get_contents($path));
+        } catch (\Exception $e) {
+            return "{$e->getMessage()} ({$e->getCode()})";
+        }
+    }
 }
