@@ -38,7 +38,8 @@ class Utils
      *
      * @return bool|string
      */
-    public static function clearString(string $str) {
+    public static function clearString(string $str)
+    {
         try {
             $explode = explode('base64,', $str);
             return array_key_exists(1, $explode) ? $explode[1] : $explode[0];
@@ -56,6 +57,26 @@ class Utils
     {
         try {
             return file_exists($path) ? true : false;
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Get base64's extension
+     *
+     * @param string $base64 Base64 string
+     *
+     * @return bool|array
+     */
+    public static function getExtFromBase64(string $base64)
+    {
+        try {
+            $pos  = strpos($base64, ';');
+            $ext[0] = explode(':', substr($base64, 0, $pos))[1];
+            $ext[1] = explode('/', $ext[0])[1];
+
+            return $ext;
         } catch (\Exception $e) {
             return false;
         }
