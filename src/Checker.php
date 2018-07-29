@@ -38,7 +38,7 @@ class Checker
      *
      * @return bool
      */
-    public function isBase64($str) {
+    public static function isBase64($str) {
         try {
             return ( base64_encode(base64_decode($str, true)) === $str) ? true : false;
         } catch (\Exception $e) {
@@ -54,7 +54,7 @@ class Checker
      *
      * @return bool
      */
-    public function isBase64Image($str)
+    public static function isBase64Image($str)
     {
         $str = Utils::clearString($str);
         $img = imagecreatefromstring(base64_decode($str));
