@@ -31,6 +31,13 @@ $file = 'http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.
 $convert = $base64Handler->toBase64($file);
 ```
 
+### Base64 to File
+
+```php
+$base64 = 'xyz';
+$convert = $base64Handler->toFile($base64);
+```
+
 ## TO-DO
 
 * Detect type of base64
