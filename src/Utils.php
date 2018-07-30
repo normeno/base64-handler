@@ -72,13 +72,50 @@ class Utils
     public static function getExtFromBase64(string $base64)
     {
         try {
-            $pos  = strpos($base64, ';');
-            $ext[0] = explode(':', substr($base64, 0, $pos))[1];
-            $ext[1] = explode('/', $ext[0])[1];
+            $base64 = Utils::clearString($base64);
+            $decoded = base64_decode($base64);
+            $fopen = finfo_open();
 
-            return $ext;
+            $mime = finfo_buffer($fopen, $decoded, FILEINFO_MIME_TYPE);
+
+            $resp = [
+                'mime' => $mime,
+                'ext' => explode('/', $mime)[1]
+            ];
+
+            return $resp;
         } catch (\Exception $e) {
             return false;
+        }
+    }
+
+    /**
+     * Get file's extension
+     *
+     * @param string $path file path
+     *
+     * @return array
+     */
+    public static function getExtFromFile(string $path)
+    {
+        $resp = [
+            'mime' => null,
+            'ext' => null
+        ];
+
+        try {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+
+            if (finfo_file($finfo, $path)) {
+                $resp = [
+                    'mime' => finfo_file($finfo, $path),
+                    'ext' => explode('/', finfo_file($finfo, $path))[0]
+                ];
+            }
+
+            return $resp;
+        } catch (\Exception $e) {
+            return $resp;
         }
     }
 }
