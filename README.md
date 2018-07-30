@@ -1,6 +1,6 @@
 # Base64 Handler (In Progress)
 
-[![Build Status][https://travis-ci.org/normeno/base64-handler.svg?branch=master]][https://travis-ci.org/normeno/base64-handler]
+[![Build Status](https://travis-ci.org/normeno/base64-handler.svg?branch=master)][https://travis-ci.org/normeno/base64-handler]
 [![Latest Stable Version](https://poser.pugx.org/normeno/base64-handler/v/stable)](https://packagist.org/packages/normeno/base64-handler)
 [![Latest Unstable Version](https://poser.pugx.org/normeno/base64-handler/v/unstable)](https://packagist.org/packages/normeno/base64-handler)
 [![Total Downloads](https://poser.pugx.org/normeno/base64-handler/downloads)](https://packagist.org/packages/normeno/base64-handler)
