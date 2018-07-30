@@ -37,7 +37,7 @@ class Base64Handler {
      * @param string $path file path
      *
      *
-     * @return bool|string
+     * @return string
      */
     public function toBase64(string $path)
     {
@@ -48,7 +48,38 @@ class Base64Handler {
                 throw new \Exception('Invalid Path', 404);
             }
 
-            return base64_encode(file_get_contents($path));
+            $file = file_get_contents($path);
+
+            $resp = Utils::getExtFromFile($path);
+            $resp['base64'] = base64_encode($file);
+
+            return $resp;
+        } catch (\Exception $e) {
+            return "{$e->getMessage()} ({$e->getCode()})";
+        }
+    }
+
+    /**
+     * Convert Base64 to File
+     *
+     * @param string $base64 Base64 string
+     *
+     * @return string
+     */
+    public function toFile(string $base64)
+    {
+        try {
+            if (!Checker::isBase64($base64)) {
+                throw new \Exception('Invalid Base64', 409);
+            }
+
+            $resp = null;
+
+            if (Checker::isBase64Image($base64)) {
+                $resp = Converter::base64ToImage($base64);
+            }
+
+            return $resp;
         } catch (\Exception $e) {
             return "{$e->getMessage()} ({$e->getCode()})";
         }
