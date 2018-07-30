@@ -49,8 +49,8 @@ class ConverterTest extends TestCase
      * @var array static base64 samples
      */
     private $samples = [
-        'png' => 'src/samples/image.png',
-        'jpg' => 'src/samples/image.jpg'
+        'png' => 'samples/image.png',
+        'jpg' => 'samples/image.jpg'
     ];
 
     public function __construct($name = null, array $data = [], $dataName = '')
