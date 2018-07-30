@@ -1,10 +1,12 @@
-# Base64 Handler (In Progress)
+# Base64 Handler
 
-[![Build Status](https://travis-ci.org/normeno/base64-handler.svg?branch=master)](https://travis-ci.org/normeno/base64-handler)
 [![Latest Stable Version](https://poser.pugx.org/normeno/base64-handler/v/stable)](https://packagist.org/packages/normeno/base64-handler)
 [![Latest Unstable Version](https://poser.pugx.org/normeno/base64-handler/v/unstable)](https://packagist.org/packages/normeno/base64-handler)
+[![Build Status](https://travis-ci.org/normeno/base64-handler.svg?branch=master)](https://travis-ci.org/normeno/base64-handler)
+[![Quality Score](https://img.shields.io/scrutinizer/g/normeno/base64-handler.svg)](https://scrutinizer-ci.com/g/normeno/base64-handler)
 [![Total Downloads](https://poser.pugx.org/normeno/base64-handler/downloads)](https://packagist.org/packages/normeno/base64-handler)
 [![License](https://poser.pugx.org/normeno/base64-handler/license)](https://packagist.org/packages/normeno/base64-handler)
+
 
 A simple and powerful package to handle base64.
 
