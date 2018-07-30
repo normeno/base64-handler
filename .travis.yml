@@ -1,3 +1,4 @@
+dist: trusty
 language: php
 php:
   - '7.0'
@@ -13,10 +14,21 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+## Cache composer
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+env:
+  - COMPOSER_FLAGS="--prefer-stable --prefer-lowest"
+
+before_script:
+  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
+
 branches:
   only:
     - master
 
 script:
-  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+  - vendor/bin/phpunit tests/ --coverage-text --coverage-clover=coverage.clover
 
