@@ -106,4 +106,27 @@ class Base64HandlerTest extends TestCase
         $assert = array_key_exists('path', $convert);
         $this->assertTrue($assert, 'testBase64ToFile');
     }
+
+    /**
+     * Check base64 type
+     *
+     * @return void
+     */
+    public function testGetBase64Type()
+    {
+        $images = ['png', 'jpg', 'jpeg', 'svg'];
+
+        foreach ($this->samples as $k => $v) {
+            $base64 = $this->handler->toBase64($v)['base64'];
+            $getType = $this->handler->getBase64Type($base64);
+
+            if ($getType == 'image' && in_array($k, $images)) {
+                $assert = true;
+            } else {
+                $assert = false;
+            }
+
+            $this->assertTrue($assert, "testGetBase64Type [$k] [$getType]");
+        }
+    }
 }

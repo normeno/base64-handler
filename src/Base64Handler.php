@@ -84,4 +84,28 @@ class Base64Handler {
             return "{$e->getMessage()} ({$e->getCode()})";
         }
     }
+
+    /**
+     * Return base64 type
+     *
+     * @param string $base64    Base64 string
+     *
+     * @return string
+     */
+    public function getBase64Type(string $base64)
+    {
+        try {
+            if (!Checker::isBase64($base64)) {
+                throw new \Exception('Invalid Base64', 409);
+            }
+
+            if (Checker::isBase64Image($base64)) {
+                return 'image';
+            } else {
+                return 'unknown type';
+            }
+        } catch (\Exception $e) {
+            return "({$e->getCode()}) {$e->getMessage()}";
+        }
+    }
 }
