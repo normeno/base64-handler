@@ -8,6 +8,8 @@
 
 A simple and powerful package to handle base64.
 
+_Currently only tested with images (png, jpg, jpeg)_
+
 ## Requirements
 
 * PHP >= 7.1
