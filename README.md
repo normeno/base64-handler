@@ -40,7 +40,6 @@ $convert = $base64Handler->toFile($base64);
 
 ## TO-DO
 
-* Detect type of base64
 * Check if base64 is a PDF
 
 ## License
