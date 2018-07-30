@@ -8,6 +8,10 @@
 
 A simple and powerful package to handle base64.
 
+## Requirements
+
+* PHP >= 7.1
+
 ## Usage
 
 ### Init library
@@ -37,6 +41,13 @@ $convert = $base64Handler->toBase64($file);
 ```php
 $base64 = 'xyz';
 $convert = $base64Handler->toFile($base64);
+```
+
+### Check base64 type
+
+```php
+$base64 = 'xyz';
+$getFile = $base64Handler->getBase64Type($base64);
 ```
 
 ## TO-DO
