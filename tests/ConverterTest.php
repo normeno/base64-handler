@@ -89,4 +89,29 @@ class ConverterTest extends TestCase
             $this->assertTrue($resp, "testImageToBase64 [$sample]");
         }
     }
+
+    /**
+     * Convert base64 to image
+     *
+     * @return void
+     */
+    public function testBase64ToImage()
+    {
+        $resp = true;
+
+        foreach ($this->samples as $k => $v) {
+            $base64 = Converter::imageToBase64($v);
+            $converted = Converter::base64ToImage($base64);
+
+            if ($k != $converted['ext']) {
+                if (!($converted['ext'] == 'jpeg' || $converted['ext'] == 'jpg')
+                    && !($k == 'jpeg' || $k == 'jpg')) {
+                    $resp = false;
+                }
+            }
+
+            @unlink($converted['path']); // Remove test files
+            $this->assertTrue($resp, "testBase64ToImage [$k]");
+        }
+    }
 }

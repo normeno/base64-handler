@@ -36,7 +36,6 @@ use PHPUnit\Framework\TestCase;
  */
 class UtilsTest extends TestCase
 {
-
     /**
      * @var array static base64 samples
      */
@@ -105,7 +104,17 @@ class UtilsTest extends TestCase
 
             $ext = Utils::getExtFromBase64($base64);
 
-            $this->assertTrue(($ext[1] == $k), "testGetExtFromBase64 [$v]");
+            if ($ext['ext'] == $k) {
+                $assert = true;
+            } else if (($ext['ext'] == 'jpeg' || $ext['ext'] == 'jpg')
+                && ($k == 'jpeg' || $k == 'jpg')) {
+                $assert = true;
+            } else {
+                var_dump($ext['ext']); exit;
+                $assert = false;
+            }
+
+            $this->assertTrue($assert, "testGetExtFromBase64 [$v]");
         }
     }
 }

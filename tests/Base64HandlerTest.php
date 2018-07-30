@@ -75,7 +75,8 @@ class Base64HandlerTest extends TestCase
     {
         foreach ($this->samples as $sample) {
             $convert = $this->handler->toBase64($sample);
-            $this->assertTrue(Checker::isBase64($convert), 'testToBase64');
+            $assert = array_key_exists('base64', $convert) && Checker::isBase64($convert['base64']);
+            $this->assertTrue($assert, 'testToBase64');
         }
     }
 
@@ -88,7 +89,21 @@ class Base64HandlerTest extends TestCase
     {
         $url = 'http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png';
         $convert = $this->handler->toBase64($url);
+        $assert = array_key_exists('base64', $convert) && Checker::isBase64($convert['base64']);
+        $this->assertTrue($assert, 'testUrlToBase64');
+    }
 
-        $this->assertTrue(Checker::isBase64($convert), 'testToBase64');
+    /**
+     * Convert an url to base64
+     *
+     * @return void
+     */
+    public function testBase64ToFile()
+    {
+        $url = 'http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png';
+        $base64 = $this->handler->toBase64($url)['base64'];
+        $convert = Converter::base64ToImage($base64);
+        $assert = array_key_exists('path', $convert);
+        $this->assertTrue($assert, 'testBase64ToFile');
     }
 }
