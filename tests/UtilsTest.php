@@ -41,7 +41,13 @@ class UtilsTest extends TestCase
      */
     private $samples = [
         'png' => 'samples/image.png',
-        'jpg' => 'samples/image.jpg'
+        'jpg' => 'samples/image.jpg',
+        'svg' => 'samples/image.svg',
+        'doc' => 'samples/file.doc',
+        'docx' => 'samples/file.docx',
+        'xls' => 'samples/file.xls',
+        'xlsx' => 'samples/file.xlsx',
+        'pdf' => 'samples/file.pdf',
     ];
 
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -96,22 +102,24 @@ class UtilsTest extends TestCase
     {
         foreach ($this->samples as $k => $v) {
             $base64 = Converter::imageToBase64($v);
-
-            if (!Checker::isBase64Image($base64)) {
-                $this->assertTrue(false, "testGetExtFromBase64 [$v]");
-                next();
-            }
-
             $ext = Utils::getExtFromBase64($base64);
 
-            if ($ext['ext'] == $k) {
-                $assert = true;
-            } else if (($ext['ext'] == 'jpeg' || $ext['ext'] == 'jpg')
-                && ($k == 'jpeg' || $k == 'jpg')) {
-                $assert = true;
-            } else {
-                var_dump($ext['ext']); exit;
-                $assert = false;
+            if ($ext['type'] == 'image') {
+                if (!Checker::isBase64Image($base64)) {
+                    $this->assertTrue(false, "testGetExtFromBase64 [$v]");
+                    next();
+                }
+
+                $ext = Utils::getExtFromBase64($base64);
+
+                if ($ext['ext'] == $k) {
+                    $assert = true;
+                } else if (($ext['ext'] == 'jpeg' || $ext['ext'] == 'jpg')
+                    && ($k == 'jpeg' || $k == 'jpg')) {
+                    $assert = true;
+                } else {
+                    $assert = false;
+                }
             }
 
             $this->assertTrue($assert, "testGetExtFromBase64 [$v]");

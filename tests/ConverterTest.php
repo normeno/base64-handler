@@ -22,6 +22,7 @@ namespace Normeno\Base64Handler\Test;
 
 use Normeno\Base64Handler\Checker;
 use Normeno\Base64Handler\Converter;
+use Normeno\Base64Handler\Utils;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -50,7 +51,13 @@ class ConverterTest extends TestCase
      */
     private $samples = [
         'png' => 'samples/image.png',
-        'jpg' => 'samples/image.jpg'
+        'jpg' => 'samples/image.jpg',
+        'svg' => 'samples/image.svg',
+        'doc' => 'samples/file.doc',
+        'docx' => 'samples/file.docx',
+        'xls' => 'samples/file.xls',
+        'xlsx' => 'samples/file.xlsx',
+        'pdf' => 'samples/file.pdf',
     ];
 
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -81,9 +88,12 @@ class ConverterTest extends TestCase
 
         foreach ($this->samples as $sample) {
             $base64 = $this->converter->imageToBase64($sample);
+            $ext = Utils::getExtFromBase64($base64);
 
-            if (!$this->checker->isBase64Image($base64)) {
-                $resp = false;
+            if ($ext['type'] == 'image') {
+                if (!$this->checker->isBase64Image($base64)) {
+                    $resp = false;
+                }
             }
 
             $this->assertTrue($resp, "testImageToBase64 [$sample]");
@@ -101,17 +111,25 @@ class ConverterTest extends TestCase
 
         foreach ($this->samples as $k => $v) {
             $base64 = Converter::imageToBase64($v);
-            $converted = Converter::base64ToImage($base64);
+            $ext = Utils::getExtFromBase64($base64);
 
-            if ($k != $converted['ext']) {
-                if (!($converted['ext'] == 'jpeg' || $converted['ext'] == 'jpg')
-                    && !($k == 'jpeg' || $k == 'jpg')) {
-                    $resp = false;
+            if (empty($ext)) {
+                $resp = false;
+            } else if ($ext['type'] == 'image') {
+                $converted = Converter::base64ToImage($base64);
+
+                if ($k != $converted['ext']) {
+                    if (!($converted['ext'] == 'jpeg' || $converted['ext'] == 'jpg')
+                        && !($k == 'jpeg' || $k == 'jpg')) {
+                        $resp = false;
+                    }
                 }
+
+                @unlink($converted['path']); // Remove test files
             }
 
-            @unlink($converted['path']); // Remove test files
             $this->assertTrue($resp, "testBase64ToImage [$k]");
+
         }
     }
 }

@@ -57,7 +57,7 @@ class Checker
     public static function isBase64Image($str)
     {
         $str = Utils::clearString($str);
-        $img = imagecreatefromstring(base64_decode($str));
+        $img = @imagecreatefromstring(base64_decode($str));
 
         if (!$img) {
             return false;

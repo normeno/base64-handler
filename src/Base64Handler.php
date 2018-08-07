@@ -62,11 +62,12 @@ class Base64Handler {
     /**
      * Convert Base64 to File
      *
-     * @param string $base64 Base64 string
+     * @param string $base64    Base64 string
+     * @param string $ext       File's extension
      *
      * @return string
      */
-    public function toFile(string $base64)
+    public function toFile(string $base64, string $ext = '')
     {
         try {
             if (!Checker::isBase64($base64)) {
@@ -77,6 +78,8 @@ class Base64Handler {
 
             if (Checker::isBase64Image($base64)) {
                 $resp = Converter::base64ToImage($base64);
+            } else {
+                $resp = Converter::base64ToFile($base64, $ext);
             }
 
             return $resp;

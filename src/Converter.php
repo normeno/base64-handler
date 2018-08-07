@@ -81,4 +81,38 @@ class Converter
             return "{$e->getMessage()}: ({$e->getCode()})";
         }
     }
+
+    /**
+     * Convert base64 to image
+     *
+     * @param string $base64    Base64 string
+     * @param string $ext       File's extension
+     * @param string $dest      destination path
+     *
+     * @return array|string
+     */
+    public static function base64ToFile(string $base64, string $ext = '', string $dest = '')
+    {
+        try {
+            if ($dest == '') {
+                $dest = getcwd() . '/src/tmp';
+            }
+
+            $base64 = Utils::clearString($base64);
+
+            $resp = Utils::getExtFromBase64($base64);
+
+            $resp['ext'] = !empty($ext) ? $ext : $resp['ext'];
+
+            $filename = md5(time().uniqid()) . '.' . $resp['ext'];
+            $resp['path'] = $dest . '/' . $filename;
+
+            file_put_contents($resp['path'], base64_decode($base64));
+            unlink($resp['path']);
+
+            return $resp;
+        } catch (\Exception $e) {
+            return "{$e->getMessage()}: ({$e->getCode()})";
+        }
+    }
 }

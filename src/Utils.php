@@ -77,10 +77,15 @@ class Utils
             $fopen = finfo_open();
 
             $mime = finfo_buffer($fopen, $decoded, FILEINFO_MIME_TYPE);
+            finfo_close($fopen);
+
+            $ext = explode('/', $mime)[1];
+            $type = self::getTypeFromExt($ext);
 
             $resp = [
                 'mime' => $mime,
-                'ext' => explode('/', $mime)[1]
+                'ext' => $ext,
+                'type' => $type
             ];
 
             return $resp;
@@ -100,22 +105,47 @@ class Utils
     {
         $resp = [
             'mime' => null,
-            'ext' => null
+            'ext' => null,
+            'type' => null
         ];
 
         try {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
             if (finfo_file($finfo, $path)) {
+                $ext = explode('.', $path);
+                $ext = end($ext);
+
                 $resp = [
                     'mime' => finfo_file($finfo, $path),
-                    'ext' => explode('/', finfo_file($finfo, $path))[0]
+                    'ext' => $ext,
+                    'type' => self::getTypeFromExt($ext)
                 ];
             }
 
             return $resp;
         } catch (\Exception $e) {
             return $resp;
+        }
+    }
+
+    /**
+     * Know if file is image or file
+     *
+     * @param $ext
+     * @return string
+     */
+    public static function getTypeFromExt($ext)
+    {
+        $images = ['png', 'jpeg', 'jpg', 'bpm', 'gif'];
+        $files = ['doc', 'docx', 'xls', 'xlsx', 'pdf', 'svg', 'svg+xml'];
+
+        if (in_array($ext, $images)) {
+            return 'image';
+        } else if (in_array($ext, $files)) {
+            return 'file';
+        } else {
+            return 'unknown';
         }
     }
 }

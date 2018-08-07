@@ -22,7 +22,6 @@ namespace Normeno\Base64Handler\Test;
 
 use Normeno\Base64Handler\Base64Handler;
 use Normeno\Base64Handler\Converter;
-use Normeno\Base64Handler\Utils;
 use PHPUnit\Framework\TestCase;
 use Normeno\Base64Handler\Checker;
 
@@ -47,7 +46,13 @@ class Base64HandlerTest extends TestCase
      */
     private $samples = [
         'png' => 'samples/image.png',
-        'jpg' => 'samples/image.jpg'
+        'jpg' => 'samples/image.jpg',
+        'svg' => 'samples/image.svg',
+        'doc' => 'samples/file.doc',
+        'docx' => 'samples/file.docx',
+        'xls' => 'samples/file.xls',
+        'xlsx' => 'samples/file.xlsx',
+        'pdf' => 'samples/file.pdf',
     ];
 
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -80,6 +85,21 @@ class Base64HandlerTest extends TestCase
         }
     }
 
+    public function testToFile()
+    {
+        foreach ($this->samples as $sample) {
+            $convert = $this->handler->toBase64($sample);
+            $assert = array_key_exists('base64', $convert) && Checker::isBase64($convert['base64']);
+
+            if (!$assert) {
+                $this->assertTrue($assert, 'testToBase64');
+            } else {
+                $toFile = $this->handler->toFile($convert['base64'], $convert['ext']);
+                $this->assertTrue((!empty($toFile) && !empty($toFile['path'])), 'testToBase64');
+            }
+        }
+    }
+
     /**
      * Convert an url to base64
      *
@@ -98,13 +118,13 @@ class Base64HandlerTest extends TestCase
      *
      * @return void
      */
-    public function testBase64ToFile()
+    public function testBase64UrlToFile()
     {
         $url = 'http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png';
         $base64 = $this->handler->toBase64($url)['base64'];
         $convert = Converter::base64ToImage($base64);
         $assert = array_key_exists('path', $convert);
-        $this->assertTrue($assert, 'testBase64ToFile');
+        $this->assertTrue($assert, 'testBase64UrlToFile');
     }
 
     /**
@@ -114,19 +134,18 @@ class Base64HandlerTest extends TestCase
      */
     public function testGetBase64Type()
     {
-        $images = ['png', 'jpg', 'jpeg', 'svg'];
-
         foreach ($this->samples as $k => $v) {
-            $base64 = $this->handler->toBase64($v)['base64'];
-            $getType = $this->handler->getBase64Type($base64);
+            $base64 = $this->handler->toBase64($v);
 
-            if ($getType == 'image' && in_array($k, $images)) {
+            if ($base64['type'] == 'image' || $base64['type'] == 'file') {
                 $assert = true;
+            } else if ($base64['type'] == 'unknown') {
+                $assert = false;
             } else {
                 $assert = false;
             }
 
-            $this->assertTrue($assert, "testGetBase64Type [$k] [$getType]");
+            $this->assertTrue($assert, "testGetBase64Type [$k] [{$base64['type']}]");
         }
     }
 }

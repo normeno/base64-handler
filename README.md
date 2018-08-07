@@ -10,7 +10,7 @@
 
 A simple and powerful package to handle base64.
 
-_Currently only tested with images (png, jpg, jpeg)_
+_Currently only tested with images (png, jpg, svg, doc, docx, pdf)_
 
 ## Requirements
 
